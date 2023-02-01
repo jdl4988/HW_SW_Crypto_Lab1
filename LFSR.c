@@ -1,25 +1,27 @@
 #include <stdio.h>
 
 int main(){	
-	uint32_t i;
+	int i;
     //set the inital value
-	uint32_t value = 77;
+	int init_value = 77;
+    int value = init_value;
     //set the feedback mask
-	uint32_t mask = 0b11100010;
-
+	int mask = 0b11100010;
+    int count = 0;
     //loop through the entire set fo registers
-	for(i = 0; i < 5; i++){
+	do{
         //shift the value right once
-		uint32_t next = value >> 1;
-        uint32_t masked = next;
+		int next = value >> 1;
+        int masked = next;
         //check if the LSB is zero or one
 		if(value & 1 == 1){
 		    masked = next ^ mask;
 		}
         value = masked;
-		printf("%d\r\n", value);
-	}
-
+		printf("count %d, register value:%d\r\n", count, value);
+        count ++;
+	}while(init_value != value);
+    printf("Inital Value: %d, Final Value: %d\r\n", init_value, value);
     return 0;
 }
 
